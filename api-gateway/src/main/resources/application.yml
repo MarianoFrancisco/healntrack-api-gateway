@@ -14,11 +14,11 @@ spring:
             - id: employee-service
               uri: lb://employee-service
               predicates:
-                - Path=/employee/**
+                - Path=/api/v1/employees/**,/api/v1/departments/**
             - id: pharmacy-service
               uri: lb://pharmacy-service
               predicates:
-                - Path=/pharmacy/**
+                - Path=/api/v1/pharmacies/**
           discovery:
             locator:
               enabled: true
