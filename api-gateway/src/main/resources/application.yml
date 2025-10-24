@@ -11,11 +11,14 @@ spring:
       server:
         webflux:
           routes:
-            - id: employee-microservice
-              uri: lb://employee-microservice
+            - id: employee-service
+              uri: lb://employee-service
               predicates:
                 - Path=/employee/**
-            
+            - id: pharmacy-service
+              uri: lb://pharmacy-service
+              predicates:
+                - Path=/pharmacy/**
             - id: openapi
               uri: http://localhost:${server.port}
               predicates:
@@ -28,15 +31,16 @@ spring:
           globalcors:
             cors-configurations:
               '[/**]':
-                allowedOrigins: "*"
-                allowedMethods: "*"
+                allowedOrigins:
+                - "http://${CORS_HOST:localhost}:${CORS_PORT:80}"
+                allowedMethods: [ GET, POST, PUT, PATCH, DELETE ]
                 allowedHeaders: "*"
                 allowCredentials: false
           default-filters:
             - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Methods Access-Control-Allow-Headers RETAIN_FIRST
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8000}
   shutdown: graceful
 
 eureka:
@@ -51,8 +55,3 @@ eureka:
 springdoc:
   swagger-ui:
     use-root-path: true
-#    urls:
-#      - name: catalog
-#        url: /v3/api-docs/catalog
-#      - name: orders
-#        url: /v3/api-docs/orders
