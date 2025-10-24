@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sa.healntrack</groupId>
-	<artifactId>api_gateway</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>api_gateway</name>
+	<artifactId>api-gateway</artifactId>
+	<version>1.0.0</version>
+	<name>api-gateway</name>
 	<description>API Gateway for Eureka microservices</description>
 	<url/>
 	<licenses>
