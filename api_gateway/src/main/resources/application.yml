@@ -15,8 +15,6 @@ spring:
               uri: lb://employee-microservice
               predicates:
                 - Path=/employee/**
-              filters:
-                - RewritePath=/employee/?(?<segment>.*), /${segment}
             
             - id: openapi
               uri: http://localhost:${server.port}
