@@ -19,12 +19,6 @@ spring:
               uri: lb://pharmacy-service
               predicates:
                 - Path=/pharmacy/**
-            - id: openapi
-              uri: http://localhost:${server.port}
-              predicates:
-                - Path=/v3/api-docs/**
-              filters:
-                - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
           discovery:
             locator:
               enabled: true
@@ -51,7 +45,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_HOSTNAME:localhost}:${EUREKA_PORT:8761}/eureka/
-
-springdoc:
-  swagger-ui:
-    use-root-path: true
