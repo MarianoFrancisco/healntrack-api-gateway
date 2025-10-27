@@ -19,15 +19,19 @@ spring:
               uri: lb://pharmacy-service
               predicates:
                 - Path=/api/v1/pharmacies/**
+            - id: patient-service
+              uri: lb://patient-service
+              predicates:
+                - Path=/api/v1/patients/**
           discovery:
             locator:
               enabled: true
           globalcors:
             cors-configurations:
-              '[/**]':
+              "[/**]":
                 allowedOrigins:
-                - "http://${CORS_HOST:localhost}:${CORS_PORT:80}"
-                allowedMethods: [ GET, POST, PUT, PATCH, DELETE ]
+                  - "http://${CORS_HOST:localhost}:${CORS_PORT:80}"
+                allowedMethods: [GET, POST, PUT, PATCH, DELETE]
                 allowedHeaders: "*"
                 allowCredentials: false
           default-filters:
@@ -35,13 +39,11 @@ spring:
 
 server:
   port: ${PORT:8000}
-  shutdown: graceful
 
 eureka:
   instance:
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 30
-    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 15
   client:
     service-url:
       defaultZone: http://${EUREKA_HOSTNAME:localhost}:${EUREKA_PORT:8761}/eureka/
