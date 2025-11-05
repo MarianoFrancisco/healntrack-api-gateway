@@ -18,11 +18,19 @@ spring:
             - id: pharmacy-service
               uri: lb://pharmacy-service
               predicates:
-                - Path=/api/v1/pharmacies/**
+                - Path=/api/v1/catalog/**,/api/v1/inventory/**,/api/v1/sales/**
             - id: patient-service
               uri: lb://patient-service
               predicates:
-                - Path=/api/v1/patients/**
+                - Path=/api/v1/patients/**,/api/v1/consultations/**
+            - id: hospitalization-service
+              uri: lb://hospitalization-service
+              predicates:
+                - Path=/api/v1/hospitalizations/**,/api/v1/surgeries/**,/api/v1/rooms/**,/api/v1/room-payments/**,/api/v1/surgery-prices/**
+            - id: account-payable-service
+              uri: lb://account-payable-service
+              predicates:
+                - Path=/api/v1/accounts-payable/**
             - id: report-service
               uri: lb://report-service
               predicates:
@@ -35,8 +43,7 @@ spring:
               "[/**]":
                 allowedOrigins:
                   - "http://${CORS_HOST:localhost}:${CORS_PORT:80}"
-                  - "http://${SECOND_CORS_HOST:localhost}:${CORS_PORT:80}"
-                allowedMethods: [ GET, POST, PUT, PATCH, DELETE ]
+                allowedMethods: [GET, POST, PUT, PATCH, DELETE]
                 allowedHeaders: "*"
                 allowCredentials: false
           default-filters:
@@ -48,8 +55,6 @@ server:
 eureka:
   instance:
     prefer-ip-address: true
-    ip-address: ${PUBLIC_HOST:localhost}
-    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
     lease-renewal-interval-in-seconds: 15
   client:
     service-url:
