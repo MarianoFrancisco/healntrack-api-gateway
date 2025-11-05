@@ -18,7 +18,6 @@ jobs:
           if [ "${GITHUB_REF_NAME}" = "main" ]; then
             echo "HOST=${{ secrets.GCP_VM_HOST_PROD }}" >> $GITHUB_ENV
 
-            # Puerto: usa SERVER_PORT_PROD si existe, sino 8000
             if [ -n "${{ secrets.SERVER_PORT_PROD }}" ]; then
               echo "SERVER_PORT=${{ secrets.SERVER_PORT_PROD }}" >> $GITHUB_ENV
             else
@@ -28,7 +27,6 @@ jobs:
             echo "EUREKA_HOSTNAME=${{ secrets.EUREKA_HOSTNAME_PROD }}" >> $GITHUB_ENV
             echo "EUREKA_PORT=${{ secrets.EUREKA_PORT_PROD }}" >> $GITHUB_ENV
 
-            # CORS (opcionales con defaults)
             if [ -n "${{ secrets.CORS_HOST_PROD }}" ]; then
               echo "CORS_HOST=${{ secrets.CORS_HOST_PROD }}" >> $GITHUB_ENV
             else
@@ -42,7 +40,6 @@ jobs:
           else
             echo "HOST=${{ secrets.GCP_VM_HOST }}" >> $GITHUB_ENV
 
-            # Puerto: usa SERVER_PORT si existe, sino 8000
             if [ -n "${{ secrets.SERVER_PORT }}" ]; then
               echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> $GITHUB_ENV
             else
@@ -52,7 +49,6 @@ jobs:
             echo "EUREKA_HOSTNAME=${{ secrets.EUREKA_HOSTNAME }}" >> $GITHUB_ENV
             echo "EUREKA_PORT=${{ secrets.EUREKA_PORT }}" >> $GITHUB_ENV
 
-            # CORS (opcionales con defaults)
             if [ -n "${{ secrets.CORS_HOST }}" ]; then
               echo "CORS_HOST=${{ secrets.CORS_HOST }}" >> $GITHUB_ENV
             else
