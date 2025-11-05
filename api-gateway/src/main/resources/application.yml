@@ -1,0 +1,53 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: api-gateway
+  mvc:
+    problemdetails:
+      enabled: true
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: employee-service
+              uri: lb://employee-service
+              predicates:
+                - Path=/api/v1/employees/**,/api/v1/departments/**
+            - id: pharmacy-service
+              uri: lb://pharmacy-service
+              predicates:
+                - Path=/api/v1/pharmacies/**
+            - id: patient-service
+              uri: lb://patient-service
+              predicates:
+                - Path=/api/v1/patients/**
+            - id: report-service
+              uri: lb://report-service
+              predicates:
+                - Path=/api/v1/reports/**
+          discovery:
+            locator:
+              enabled: true
+          globalcors:
+            cors-configurations:
+              "[/**]":
+                allowedOrigins:
+                  - "http://${CORS_HOST:localhost}:${CORS_PORT:80}"
+                allowedMethods: [GET, POST, PUT, PATCH, DELETE]
+                allowedHeaders: "*"
+                allowCredentials: false
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Methods Access-Control-Allow-Headers RETAIN_FIRST
+
+server:
+  port: ${PORT:8000}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 15
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOSTNAME:localhost}:${EUREKA_PORT:8761}/eureka/
