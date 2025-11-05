@@ -49,7 +49,7 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: ${PUBLIC_HOST:localhost}
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    instance-id: ${spring.application.name}:${server.port}
     lease-renewal-interval-in-seconds: 15
   client:
     service-url:
