@@ -35,7 +35,8 @@ spring:
               "[/**]":
                 allowedOrigins:
                   - "http://${CORS_HOST:localhost}:${CORS_PORT:80}"
-                allowedMethods: [GET, POST, PUT, PATCH, DELETE]
+                  - "http://${SECOND_CORS_HOST:localhost}:${CORS_PORT:80}"
+                allowedMethods: [ GET, POST, PUT, PATCH, DELETE ]
                 allowedHeaders: "*"
                 allowCredentials: false
           default-filters:
@@ -47,6 +48,8 @@ server:
 eureka:
   instance:
     prefer-ip-address: true
+    ip-address: ${PUBLIC_HOST:localhost}
+    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
     lease-renewal-interval-in-seconds: 15
   client:
     service-url:

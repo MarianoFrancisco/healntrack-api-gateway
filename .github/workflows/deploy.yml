@@ -27,16 +27,13 @@ jobs:
             echo "EUREKA_HOSTNAME=${{ secrets.EUREKA_HOSTNAME_PROD }}" >> $GITHUB_ENV
             echo "EUREKA_PORT=${{ secrets.EUREKA_PORT_PROD }}" >> $GITHUB_ENV
 
-            if [ -n "${{ secrets.CORS_HOST_PROD }}" ]; then
-              echo "CORS_HOST=${{ secrets.CORS_HOST_PROD }}" >> $GITHUB_ENV
-            else
-              echo "CORS_HOST=localhost" >> $GITHUB_ENV
-            fi
-            if [ -n "${{ secrets.CORS_PORT_PROD }}" ]; then
-              echo "CORS_PORT=${{ secrets.CORS_PORT_PROD }}" >> $GITHUB_ENV
-            else
-              echo "CORS_PORT=80" >> $GITHUB_ENV
-            fi
+            echo "CORS_HOST=${{ secrets.CORS_HOST_PROD }}" >> $GITHUB_ENV
+            echo "CORS_PORT=${{ secrets.CORS_PORT_PROD }}" >> $GITHUB_ENV
+
+            echo "SECOND_CORS_HOST=${{ secrets.SECOND_CORS_HOST_PROD }}" >> $GITHUB_ENV
+
+            echo "PUBLIC_HOST=${{ secrets.PUBLIC_HOST_PROD }}" >> $GITHUB_ENV
+
           else
             echo "HOST=${{ secrets.GCP_VM_HOST }}" >> $GITHUB_ENV
 
@@ -49,16 +46,12 @@ jobs:
             echo "EUREKA_HOSTNAME=${{ secrets.EUREKA_HOSTNAME }}" >> $GITHUB_ENV
             echo "EUREKA_PORT=${{ secrets.EUREKA_PORT }}" >> $GITHUB_ENV
 
-            if [ -n "${{ secrets.CORS_HOST }}" ]; then
-              echo "CORS_HOST=${{ secrets.CORS_HOST }}" >> $GITHUB_ENV
-            else
-              echo "CORS_HOST=localhost" >> $GITHUB_ENV
-            fi
-            if [ -n "${{ secrets.CORS_PORT }}" ]; then
-              echo "CORS_PORT=${{ secrets.CORS_PORT }}" >> $GITHUB_ENV
-            else
-              echo "CORS_PORT=80" >> $GITHUB_ENV
-            fi
+            echo "CORS_HOST=${{ secrets.CORS_HOST }}" >> $GITHUB_ENV
+            echo "CORS_PORT=${{ secrets.CORS_PORT }}" >> $GITHUB_ENV
+
+            echo "SECOND_CORS_HOST=${{ secrets.SECOND_CORS_HOST }}" >> $GITHUB_ENV
+
+            echo "PUBLIC_HOST=${{ secrets.PUBLIC_HOST }}" >> $GITHUB_ENV
           fi
 
       - name: Set up SSH
@@ -88,5 +81,7 @@ jobs:
               -e EUREKA_PORT="$EUREKA_PORT" \
               -e CORS_HOST="$CORS_HOST" \
               -e CORS_PORT="$CORS_PORT" \
+              -e SECOND_CORS_HOST="$SECOND_CORS_HOST" \
+              -e PUBLIC_HOST="$PUBLIC_HOST" \
               api-gateway
           EOF
