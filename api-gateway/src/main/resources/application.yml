@@ -56,6 +56,8 @@ eureka:
   instance:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 15
+    ip-address: ${PUBLIC_HOST:localhost}
+    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: http://${EUREKA_HOSTNAME:localhost}:${EUREKA_PORT:8761}/eureka/
