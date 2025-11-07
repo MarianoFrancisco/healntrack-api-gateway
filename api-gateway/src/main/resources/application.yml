@@ -34,7 +34,7 @@ spring:
             - id: report-service
               uri: lb://report-service
               predicates:
-                - Path=/api/v1/reports/**,/api/v1/transactions/**
+                - Path=/api/v1/reports/**,/api/v1/transactions/**,/api/v1/areas/**
           discovery:
             locator:
               enabled: true
