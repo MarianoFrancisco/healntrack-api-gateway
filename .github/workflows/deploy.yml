@@ -68,6 +68,12 @@ jobs:
             cd ./healntrack-api-gateway
             git checkout ${GITHUB_REF_NAME}
             git pull
+
+            sudo docker container prune -f || true
+            sudo docker image prune -af || true
+            sudo docker builder prune -af || true
+            sudo docker volume prune -f || true
+            
             sudo docker build -t api-gateway .
 
             sudo docker stop api-gateway || true
